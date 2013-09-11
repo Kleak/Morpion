@@ -4,11 +4,7 @@ import "dart:json";
 
 import "packages/ontheroad/ontheroad.dart";
 
-
-
-String address = "127.0.0.1";
-
-//req.response.statusCode = HttpStatus.NOT_FOUND;
+String address = InternetAddress.LOOPBACK_IP_V4.address;
 
 void soloGame(HttpRequest req, Map keys, String params) {
   if (req.session["serverRestart"] != null) {
@@ -105,13 +101,11 @@ void handleWebSocket(WebSocket conn, HttpRequest req) {
   conn.listen((String e) {
     try {
       Map info = parse(e);
-
       if (info["state"] == "connection") {
         Channel playerChannel;
         Player currentPlayer;
         bool channelExist = false;
         bool playerExist = false;
-
         for (int i = 0; i < channels.length; i++) {
           Channel channel = channels[i];
           if (channel.name == req.session["channel"]) {
@@ -175,7 +169,6 @@ void handleWebSocket(WebSocket conn, HttpRequest req) {
             break;
           };
         }
-
         if (!playerChannel.isFinish) {
           if (currentPlayer.num < 2) {
             if (currentPlayer.isMyTurn) {
