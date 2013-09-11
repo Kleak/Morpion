@@ -185,34 +185,39 @@ void handleWebSocket(WebSocket conn, HttpRequest req) {
                 }
                 playerChannel.map[info["pos"]] = currentPlayer.num;
 
-                int case1 = info["pos"];
-                int case2 = (info["pos"] + 1) % 9;
-                int case3 = (info["pos"] + 2) % 9;
-                int case4 = (info["pos"] + 3) % 9;
-                int case5 = (info["pos"] + 4) % 9;
-                int case6 = (info["pos"] + 5) % 9;
-                int case7 = (info["pos"] + 6) % 9;
-                int case8 = (info["pos"] + 7) % 9;
-                int case9 = (info["pos"] + 8) % 9;
+                List victory1 = [1, 1, 1, 0, 0, 0, 0, 0, 0 ];
+                List victory2 = [0, 0, 0, 1, 1, 1, 0, 0, 0 ];
+                List victory3 = [0, 0, 0, 0, 0, 0, 1, 1, 1 ];
+                List victory4 = [1, 0, 0, 1, 0, 0, 1, 0, 0 ];
+                List victory5 = [0, 1, 0, 0, 1, 0, 0, 1, 0 ];
+                List victory6 = [0, 0, 1, 0, 0, 1, 0, 0, 1 ];
+                List victory7 = [1, 0, 0, 0, 1, 0, 0, 0, 1 ];
+                List victory8 = [0, 0, 1, 0, 1, 0, 1, 0, 0 ];
 
-                if ((playerChannel.map[case1] == currentPlayer.num &&
-                    playerChannel.map[case2] == currentPlayer.num &&
-                    playerChannel.map[case3] == currentPlayer.num) ||
-                    (playerChannel.map[case1] == currentPlayer.num &&
-                    playerChannel.map[case4] == currentPlayer.num &&
-                    playerChannel.map[case7] == currentPlayer.num) ||
-                    (playerChannel.map[case1] == currentPlayer.num &&
-                    playerChannel.map[case5] == currentPlayer.num &&
-                    playerChannel.map[case9] == currentPlayer.num) ||
-                    (playerChannel.map[case1] == currentPlayer.num &&
-                    playerChannel.map[case3] == currentPlayer.num &&
-                    playerChannel.map[case5] == currentPlayer.num)) {
+                List map = new List<int>();
+                for (int i = 0; i < playerChannel.map.length; i++) {
+                  if (playerChannel.map[i] != currentPlayer.num) {
+                    map.add(0);
+                  }
+                  else {
+                    map.add(1);
+                  }
+                }
+
+                if (map.toString() == victory1.toString() ||
+                    map.toString() == victory2.toString() ||
+                    map.toString() == victory3.toString() ||
+                    map.toString() == victory4.toString() ||
+                    map.toString() == victory5.toString() ||
+                    map.toString() == victory6.toString() ||
+                    map.toString() == victory7.toString() ||
+                    map.toString() == victory8.toString()) {
                   for (int i = 0; i < playerChannel.players.length; i++) {
                     Player player = playerChannel.players[i];
                     player.isMyTurn = false;
                     String data = stringify({ "state": "tour", "me": player.isMyTurn });
                     player.ws.add(data);
-                    data = stringify({ "state": "finish", "gagnant": currentPlayer });
+                    data = stringify({ "state": "finish", "gagnant": currentPlayer.num });
                     player.ws.add(data);
                     playerChannel.isFinish = true;
                   }
