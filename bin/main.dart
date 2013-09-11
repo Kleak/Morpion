@@ -212,7 +212,7 @@ void handleWebSocket(WebSocket conn, HttpRequest req) {
                     player.isMyTurn = false;
                     String data = stringify({ "state": "tour", "me": player.isMyTurn });
                     player.ws.add(data);
-                    data = stringify({ "state": "finish" });
+                    data = stringify({ "state": "finish", "gagnant": currentPlayer });
                     player.ws.add(data);
                     playerChannel.isFinish = true;
                   }
