@@ -68,11 +68,6 @@ void ws(HttpRequest req, Map keys, String params) {
   });
 }
 
-void upload(HttpRequest req, Map keys, String params) {
-  req.response.write("ok");
-  req.response.close();
-}
-
 class Player {
   WebSocket       ws;
   String          id;
@@ -276,8 +271,6 @@ void main() {
   app.get('/ws', ws);
   app.get('/favicon.ico', fav);
   app.get('*', redirHome);
-
-  app.post('/uploaddata', upload);
 
   app.listen("${address}", 8888);
 }
