@@ -6,10 +6,7 @@ import "packages/ontheroad/ontheroad.dart";
 
 
 
-//String address = "127.0.0.1";
-String address = "10.12.181.118";
-//String address = "192.168.1.27";
-//String address = "2.3.205.212";
+String address = "127.0.0.1";
 
 //req.response.statusCode = HttpStatus.NOT_FOUND;
 
@@ -76,7 +73,6 @@ void ws(HttpRequest req, Map keys, String params) {
 }
 
 void upload(HttpRequest req, Map keys, String params) {
-  print('params = ${params}');
   req.response.write("ok");
   req.response.close();
 }

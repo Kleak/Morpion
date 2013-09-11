@@ -37,7 +37,7 @@ class OnTheRoad {
     this._postRouteFunction.add(f);
   }
 
-  void method(HttpRequest req, List<String> route, List<Function> method, [List<int> data]) {
+  void _method(HttpRequest req, List<String> route, List<Function> method, [List<int> data]) {
     Map keys = new Map<String, String>();
     bool pathExist = false;
     List tabRouteString = null;
@@ -90,12 +90,12 @@ class OnTheRoad {
         req.response.headers.set("Access-Control-Allow-Origin", '*');
 
         if (req.method == 'GET') {
-          this.method(req, this._getRouteString, this._getRouteFunction);
+          this._method(req, this._getRouteString, this._getRouteFunction);
         }
         else {
           req.listen((List<int> data) => dataBody.addAll(data), onDone: () {
 
-            this.method(req, this._postRouteString, this._postRouteFunction, dataBody);
+            this._method(req, this._postRouteString, this._postRouteFunction, dataBody);
 
             req.response.statusCode = HttpStatus.NOT_FOUND;
             req.response.close();

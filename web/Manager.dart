@@ -6,9 +6,6 @@ import 'Circle.dart';
 import 'Config.dart';
 
 String address = "127.0.0.1";
-//String address = "10.12.181.4";
-//String address = "192.168.1.27";
-//String address = "2.3.205.212";
 
 class Manager {
   DivElement  mainContainer;
