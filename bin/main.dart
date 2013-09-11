@@ -6,8 +6,8 @@ import "packages/ontheroad/ontheroad.dart";
 
 
 
-String address = "127.0.0.1";
-//String address = "10.12.181.4";
+//String address = "127.0.0.1";
+String address = "10.12.181.118";
 //String address = "192.168.1.27";
 //String address = "2.3.205.212";
 
@@ -73,6 +73,12 @@ void ws(HttpRequest req, Map keys, String params) {
   WebSocketTransformer.upgrade(req).then((WebSocket ws) {
     handleWebSocket(ws, req);
   });
+}
+
+void upload(HttpRequest req, Map keys, String params) {
+  print('params = ${params}');
+  req.response.write("ok");
+  req.response.close();
 }
 
 class Player {
@@ -281,6 +287,8 @@ void main() {
   app.get('/ws', ws);
   app.get('/favicon.ico', fav);
   app.get('*', redirHome);
+
+  app.post('/uploaddata', upload);
 
   app.listen("${address}", 8888);
 }

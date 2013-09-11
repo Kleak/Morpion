@@ -94,9 +94,8 @@ class OnTheRoad {
         }
         else {
           req.listen((List<int> data) => dataBody.addAll(data), onDone: () {
-            print("data = ${dataBody}");
-            this.method(req, this._postRouteString, this._postRouteFunction, dataBody);
 
+            this.method(req, this._postRouteString, this._postRouteFunction, dataBody);
 
             req.response.statusCode = HttpStatus.NOT_FOUND;
             req.response.close();
